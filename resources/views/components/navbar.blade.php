@@ -97,7 +97,7 @@
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                             id="user-menu-item-0">Your Profile</a>
                         @admin
-                            <a href="/book/create" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                            <a href="/books/create" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                                 tabindex="-1" id="user-menu-item-1">Add book</a>
                         @endadmin
                         <form action="/logout" method="post">

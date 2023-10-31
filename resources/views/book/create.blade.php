@@ -3,6 +3,7 @@
         <x-title>Add book</x-title>
         <form action="/add" method="POST" class="space-y-4">
             @csrf
+            <input type="hidden" name="slug" />
             <div>
                 <x-input-label for="title" :value="__('title')" />
                 <x-text-input class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus

@@ -15,11 +15,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::post('/add',[BookController::class,'store']);
+Route::get('books/index', [BookController::class, 'index']);
+Route::get('book/{book:slug}', [BookController::class, 'show']);
 
-Route::middleware('can:admin')->group(function(){
-    Route::get('book/create', [BookController::class, 'create']);
+Route::middleware('can:admin')->group(function () {
+    Route::post('/add', [BookController::class, 'store']);
+    Route::get('books/create', [BookController::class, 'create']);
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
