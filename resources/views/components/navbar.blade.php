@@ -37,8 +37,8 @@
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <x-nav-link href="/">Home</x-nav-link>
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
+                        <x-nav-link href="/books/index">Books</x-nav-link>
+
                         <a href="#"
                             class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
                         <a href="#"
@@ -116,8 +116,8 @@
         <div class="space-y-1 px-2 pb-3 pt-2">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <x-nav-link href="/">Home</x-nav-link>
-            <a href="#"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
+            <x-nav-link href="/books/index">Books</x-nav-link>
+
             <a href="#"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
             <a href="#"

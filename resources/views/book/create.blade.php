@@ -1,7 +1,7 @@
 <x-layout>
     <x-section>
         <x-title>Add book</x-title>
-        <form action="/add" method="POST" class="space-y-4">
+        <form action="/add" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="slug" />
             <div>
@@ -24,9 +24,13 @@
             </div>
             <div>
                 <x-input-label for="thumbnail" :value="__('thumbnail')" />
-                <x-text-input class="block mt-1 w-full bg-white" type="file" name="thumbnail" :value="old('thumbnail')"
-                    autofocus autocomplete="thumbnail" />
+                <x-text-input class="block mt-1 w-full bg-white" type="file" name="thumbnail"
+                    autofocus />
                 <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="body" :value="__('body')" />
+                <x-textarea name="body"/>
             </div>
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>

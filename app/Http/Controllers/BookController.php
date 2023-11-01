@@ -28,9 +28,12 @@ class BookController extends Controller
             'title'=> 'required|max:255',
             'description' => 'required|max:255',
             'year' => 'required|max:4',
+            'body' => 'required',
             'slug' => '',
+            'thumbnail' => 'image',
         ]);
         $attributes['slug'] = Str::slug($attributes['title'],'-');
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
         $book = Book::create($attributes);
         $book->save();
         return redirect('/')->with('success', 'Book added to database');
