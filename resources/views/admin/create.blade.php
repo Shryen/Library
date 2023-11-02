@@ -1,7 +1,29 @@
-<x-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#addTagButton').click(function() {
+        var textarea = document.getElementById('textArea');
+        var tag = '<p>'; 
+        var closingTag = '</p>'; 
+        var selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+        var originalText = textarea.value;
+
+        // Check if text is selected
+        if (selectedText.length > 0) {
+            var modifiedText = originalText.substring(0, textarea.selectionStart) +
+                tag + selectedText + closingTag +
+                originalText.substring(textarea.selectionEnd);
+
+            textarea.value = modifiedText;
+        }
+    });
+});
+</script>
+
+<x-admin.admin-layout>
     <x-section>
         <x-title>Add book</x-title>
-        <form action="/add" method="POST" class="space-y-4" enctype="multipart/form-data">
+        <form action="/admin/add" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="slug" />
             <div>
@@ -40,12 +62,14 @@
             </div>
             <div>
                 <x-input-label for="body" :value="__('body')" />
-                <x-textarea name="body" />
+                <x-textarea name="body" id="textArea" />
             </div>
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
             @endforeach
             <x-primary-button>Add Book</x-primary-button>
         </form>
+        <button id="addTagButton" onclick="paragraph()">Add paragraph</button>
+
     </x-section>
-</x-layout>
+</x-admin.admin-layout>

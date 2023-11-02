@@ -102,7 +102,7 @@
                             <x-dropdown-link href="/profile">Your Profile</x-dropdown-link>
                             @admin
                                 <x-dropdown-link href="/admin/index">Admin page</x-dropdown-link>
-                                <x-dropdown-link href="/books/create">Add book</x-dropdown-link>
+                                <x-dropdown-link href="/admin/create">Add book</x-dropdown-link>
                             @endadmin
                             <form action="/logout" method="post">
                                 @csrf

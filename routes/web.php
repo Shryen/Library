@@ -19,12 +19,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('books/index', [BookController::class, 'index']);
 Route::get('book/{book:slug}', [BookController::class, 'show']);
-Route::get('/admin/index', [AdminController::class, 'index']);
 Route::post('/book/{book:slug}/rates',[RateController::class,'store']);
 
 Route::middleware('can:admin')->group(function () {
-    Route::post('/add', [BookController::class, 'store']);
-    Route::get('books/create', [BookController::class, 'create']);
+    Route::get('/admin/index', [AdminController::class, 'index']);
+    Route::post('/admin/add', [AdminController::class, 'store']);
+    Route::get('/admin/create', [AdminController::class, 'create']);
     
 });
 
