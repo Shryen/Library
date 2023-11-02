@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('description');
             $table->string('year');
+            $table->integer('price');
+            $table->string('author');
             $table->string('slug');
             $table->text('body');
             $table->string('thumbnail')->nullable();

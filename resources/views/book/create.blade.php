@@ -23,14 +23,18 @@
                 <x-input-error :messages="$errors->get('year')" class="mt-2" />
             </div>
             <div>
+                <x-input-label for="price" :value="__('price')" />
+                <x-text-input class="block mt-1 w-full" type="number" name="price" :value="old('price')" required
+                    autofocus autocomplete="year" />
+            </div>
+            <div>
                 <x-input-label for="thumbnail" :value="__('thumbnail')" />
-                <x-text-input class="block mt-1 w-full bg-white" type="file" name="thumbnail"
-                    autofocus />
+                <x-text-input class="block mt-1 w-full bg-white" type="file" name="thumbnail" autofocus />
                 <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
             </div>
             <div>
                 <x-input-label for="body" :value="__('body')" />
-                <x-textarea name="body"/>
+                <x-textarea name="body" />
             </div>
             @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>

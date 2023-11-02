@@ -13,10 +13,14 @@
             </svg>
             Back to books
         </a>
-        <div class="flex">
+        <div class="flex flex-col lg:flex-row">
             <div class="border-r">
-                <img src={{ asset('storage/' . $book->thumbnail) }} width="400px" class="p-2"
+                <img src={{ asset('storage/' . $book->thumbnail) }} width="800px" class="p-2 border-b"
                     alt="{{ $book->title }}">
+                <div class="pl-2 space-y-2">
+                    <p class="text-sm">Release year: {{ $book->year }}</p>
+                    <p class="text-sm">Author: <a href="books/index?author={{$book->author}}" class="text-sm text-blue-800">{{ $book->author }}</a></p>
+                </div>
             </div>
             <div class="space-y-2 p-2 text-justify leading-6">
                 <h1 class="text-3xl font-semibold">{{ $book->title }}</h1>

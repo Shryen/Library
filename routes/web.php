@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,10 +18,13 @@ Route::middleware('auth')->group(function () {
 
 Route::get('books/index', [BookController::class, 'index']);
 Route::get('book/{book:slug}', [BookController::class, 'show']);
+Route::get('/admin/index', [AdminController::class, 'index']);
+
 
 Route::middleware('can:admin')->group(function () {
     Route::post('/add', [BookController::class, 'store']);
     Route::get('books/create', [BookController::class, 'create']);
+    
 });
 
 

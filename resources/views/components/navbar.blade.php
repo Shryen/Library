@@ -29,7 +29,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex items-center justify-center sm:items-stretch sm:justify-start mr-auto">
                 <div class="flex flex-shrink-0 items-center">
 
                 </div>
@@ -38,15 +38,16 @@
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                         <x-nav-link href="/">Home</x-nav-link>
                         <x-nav-link href="/books/index">Books</x-nav-link>
-
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
-                        <a href="#"
-                            class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
                     </div>
                 </div>
             </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <div class="flex flex-1 justify-center">
+                <form method="GET" action="/books/index">
+                    <input type="text" name="search" placeholder="Find something" class="bg-gray-100 px-4 py-2 border border-blue-800 rounded"/>
+                </form>
+            </div>
+
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ml-auto">
                 @auth
                     <p class="text-sm text-white mr-4 font-semibold">{{ auth()->user()->name }}</p>
                 @endauth
@@ -94,15 +95,14 @@
                         class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="user-menu-item-0">Your Profile</a>
+                        <x-dropdown-link href="#">Profile</x-dropdown-link>
                         @admin
-                            <a href="/books/create" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                tabindex="-1" id="user-menu-item-1">Add book</a>
+                        <x-dropdown-link href="/admin/index">Admin page</x-dropdown-link>
+                        <x-dropdown-link href="/books/create">Add book</x-dropdown-link>
                         @endadmin
                         <form action="/logout" method="post">
                             @csrf
-                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 text-left w-full" role="menuitem"
                                 tabindex="-1" id="user-menu-item-2">Sign out</button>
                         </form>
                     </div>

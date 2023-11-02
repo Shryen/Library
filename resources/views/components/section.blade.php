@@ -1,3 +1,3 @@
-<section {{$attributes(['class' => 'max-w-xl mx-auto border border-gray-300 p-4 mt-10 rounded bg-gray-100'])}}>
+<section {{$attributes(['class' => 'max-w-xl mx-auto p-4 mt-10 rounded'])}}>
     {{ $slot }}
 </section>
