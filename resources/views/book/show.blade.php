@@ -19,7 +19,7 @@
                     alt="{{ $book->title }}">
                 <div class="pl-2 space-y-2">
                     <p class="text-sm">Release year: {{ $book->year }}</p>
-                    <p class="text-sm">Author: <a href="books/index?author={{$book->author}}" class="text-sm text-blue-800">{{ $book->author }}</a></p>
+                    <p class="text-sm">Author: <a href="/books/index?author={{$book->author}}" class="text-sm text-blue-800">{{ $book->author }}</a></p>
                 </div>
             </div>
             <div class="space-y-2 p-2 text-justify leading-6">
