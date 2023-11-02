@@ -36,24 +36,26 @@
                 <div class="hidden sm:ml-6 sm:block">
                     <div class="flex space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <x-nav-link href="/">Home</x-nav-link>
-                        <x-nav-link href="/books/index">Books</x-nav-link>
+                        <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
+                        <x-nav-link href="/books/index" :active="request()->is('books/index')">Books</x-nav-link>
                     </div>
                 </div>
             </div>
             <div class="flex flex-1 justify-center">
                 <form method="GET" action="/books/index">
-                    <input type="text" name="search" placeholder="Find something" class="bg-gray-100 px-4 py-2 border border-blue-800 rounded"/>
+                    <input type="text" name="search" placeholder="Find something"
+                        class="bg-gray-100 px-4 py-2 border border-blue-800 rounded" />
                 </form>
             </div>
 
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ml-auto">
+            <div
+                class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ml-auto">
                 @auth
                     <p class="text-sm text-white mr-4 font-semibold">{{ auth()->user()->name }}</p>
                 @endauth
                 @guest
-                    <x-nav-link href="/register" :active="request()->is('/register')">Register</x-nav-link>
-                    <x-nav-link href="/login" :active="request()->is('/login')"> Login </x-nav-link>
+                    <x-nav-link href="/register" :active="request()->is('register')">Register</x-nav-link>
+                    <x-nav-link href="/login" :active="request()->is('login')"> Login </x-nav-link>
                 @endguest
                 <button type="button"
                     class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -97,13 +99,14 @@
                         <!-- Active: "bg-gray-100", Not Active: "" -->
                         <x-dropdown-link href="#">Profile</x-dropdown-link>
                         @admin
-                        <x-dropdown-link href="/admin/index">Admin page</x-dropdown-link>
-                        <x-dropdown-link href="/books/create">Add book</x-dropdown-link>
+                            <x-dropdown-link href="/admin/index">Admin page</x-dropdown-link>
+                            <x-dropdown-link href="/books/create">Add book</x-dropdown-link>
                         @endadmin
                         <form action="/logout" method="post">
                             @csrf
-                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 text-left w-full" role="menuitem"
-                                tabindex="-1" id="user-menu-item-2">Sign out</button>
+                            <button type="submit"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 text-left w-full"
+                                role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
                         </form>
                     </div>
                 </div>
