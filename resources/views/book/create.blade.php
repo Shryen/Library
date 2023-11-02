@@ -17,6 +17,12 @@
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div>
+                <x-input-label for="author" :value="__('author')" />
+                <x-text-input class="block mt-1 w-full" type="text" name="author" :value="old('author')" required
+                    autofocus autocomplete="author" />
+                <x-input-error :messages="$errors->get('author')" class="mt-2" />
+            </div>
+            <div>
                 <x-input-label for="year" :value="__('year')" />
                 <x-text-input class="block mt-1 w-full" type="text" name="year" :value="old('year')" required
                     autofocus autocomplete="year" />

@@ -9,14 +9,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'year',
-        'slug',
-        'body',
-        'thumbnail'
-    ];
+    protected $guarded = [];
 
     public function scopeFilter($query, array $filters)
     {
@@ -29,5 +22,9 @@ class Book extends Model
                 ->orWhere('author','like','%'.$search.'%')
             );
         });
+    }
+
+    public function rates(){
+        return $this->hasMany(Rate::class);
     }
 }

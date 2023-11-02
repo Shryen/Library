@@ -27,8 +27,10 @@ class BookController extends Controller
         $attributes = request()->validate([
             'title'=> 'required|max:255',
             'description' => 'required|max:255',
+            'author' => 'required|max:255',
             'year' => 'required|max:4',
             'body' => 'required',
+            'price' => 'required',
             'slug' => '',
             'thumbnail' => 'image',
         ]);
