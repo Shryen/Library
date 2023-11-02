@@ -1,6 +1,6 @@
 <x-layout>
      <x-section>
-         <form method="POST" action="{{ route('register') }}">
+         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             <x-title>Register</x-title>
             @csrf
             <!-- Name -->
@@ -30,6 +30,12 @@
                 <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                     name="password_confirmation" required autocomplete="new-password" />
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            </div>
+            <div class="mt-4">
+                <x-input-label for="avatar" :value="__('avatar')" />
+                <x-text-input id="avatar" class="block mt-1 w-full" type="file"
+                    name="avatar" required />
+                <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
             </div>
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

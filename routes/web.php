@@ -22,7 +22,6 @@ Route::get('book/{book:slug}', [BookController::class, 'show']);
 Route::get('/admin/index', [AdminController::class, 'index']);
 Route::post('/book/{book:slug}/rates',[RateController::class,'store']);
 
-
 Route::middleware('can:admin')->group(function () {
     Route::post('/add', [BookController::class, 'store']);
     Route::get('books/create', [BookController::class, 'create']);
