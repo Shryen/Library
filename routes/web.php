@@ -25,7 +25,9 @@ Route::middleware('can:admin')->group(function () {
     Route::get('/admin/index', [AdminController::class, 'index']);
     Route::post('/admin/add', [AdminController::class, 'store']);
     Route::get('/admin/create', [AdminController::class, 'create']);
-    
+    Route::get('admin/book/{book:slug}/edit',[AdminController::class, 'edit']);
+    Route::patch('admin/books/{book}',[AdminController::class, 'update']);
+    Route::delete('admin/books/{book}',[AdminController::class, 'destroy']);
 });
 
 
