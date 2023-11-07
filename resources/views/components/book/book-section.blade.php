@@ -1,6 +1,6 @@
 @props(['books'])
 <div
-    class="p-4 rounded flex flex-col lg:flex-row relative bg-gray-100 border border-blue-800 hover:bg-white transition-all w-full">
+    class="p-4 rounded flex flex-col lg:flex-row relative shadow border border-blue-400 hover:bg-slate-400 transition-all w-full">
     <div>
         <img src={{ asset('storage/' . $books->thumbnail) }} width="200px" alt="{{ $books->title }}">
     </div>

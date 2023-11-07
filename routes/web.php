@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Route;
@@ -19,15 +20,18 @@ Route::middleware('auth')->group(function () {
 
 Route::get('books/index', [BookController::class, 'index']);
 Route::get('book/{book:slug}', [BookController::class, 'show']);
-Route::post('/book/{book:slug}/rates',[RateController::class,'store']);
+Route::post('/book/{book:slug}/rates', [RateController::class, 'store']);
+
+Route::get('/cart/index', [CartController::class, 'index']);
+Route::post('/addCart',[CartController::class, 'store']);
 
 Route::middleware('can:admin')->group(function () {
     Route::get('/admin/index', [AdminController::class, 'index']);
     Route::post('/admin/add', [AdminController::class, 'store']);
     Route::get('/admin/create', [AdminController::class, 'create']);
-    Route::get('admin/book/{book:slug}/edit',[AdminController::class, 'edit']);
-    Route::patch('admin/books/{book}',[AdminController::class, 'update']);
-    Route::delete('admin/books/{book}',[AdminController::class, 'destroy']);
+    Route::get('admin/book/{book:slug}/edit', [AdminController::class, 'edit']);
+    Route::patch('admin/books/{book}', [AdminController::class, 'update']);
+    Route::delete('admin/books/{book}', [AdminController::class, 'destroy']);
 });
 
 

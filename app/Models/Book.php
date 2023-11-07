@@ -27,4 +27,10 @@ class Book extends Model
     public function rates(){
         return $this->hasMany(Rate::class);
     }
+    public function cart(){
+        return $this->belongsTo(Cart::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
