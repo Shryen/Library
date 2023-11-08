@@ -1,8 +1,7 @@
 <x-layout>
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    
-        <x-section>
-            <form method="POST" action="{{ route('login') }}">
+        <x-section class="max-w-xl">
+            <form method="POST" action="{{ route('login') }}" class="shadow p-4 bg-gray-100 rounded">
                 <x-title>Login</x-title>
                 @csrf
                 <!-- Email Address -->

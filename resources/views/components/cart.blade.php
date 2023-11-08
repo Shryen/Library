@@ -11,9 +11,9 @@
                 @foreach ($cart as $productID => $cartItem)
                     <li class="flex space-x-4 shadow px-4 my-4 ">
                         <img src={{ asset('storage/' . $cartItem['product']->thumbnail) }} width="50px"
-                            class="p-2 border-b" />
-                        <p>{{ $cartItem['product']->title }}</p>
-                        <p>${{ $cartItem['product']->price }}</p>
+                            class="p-2" />
+                        <p class="w-full">{{ $cartItem['product']->title }}</p>
+                        <p><strong>${{ $cartItem['product']->price * $cartItem['quantity'] }}</strong></p>
                     </li>
                 @endforeach
             </ul>

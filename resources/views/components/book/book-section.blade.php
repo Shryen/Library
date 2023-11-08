@@ -12,7 +12,7 @@
                 class="text-sm text-blue-800">{{ $books->author }}</a></p>
         <p class="text-sm">Release: {{ $books->year }}</p>
         <hr />
-        <p class="text-justify">{{ $books->description }}</p>
+        <p class="">{{ $books->description }}</p>
     </div>
 
 </div>

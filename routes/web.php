@@ -23,7 +23,10 @@ Route::get('book/{book:slug}', [BookController::class, 'show']);
 Route::post('/book/{book:slug}/rates', [RateController::class, 'store']);
 
 Route::get('/cart/index', [CartController::class, 'index']);
-Route::post('/addCart',[CartController::class, 'store']);
+Route::post('/addCart', [CartController::class, 'store']);
+Route::post('/checkout', [CartController::class, 'checkout']);
+Route::get('/checkout/success', [CartController::class, 'success'])->name('success');
+Route::get('/checkout/cancel', [CartController::class, 'cancel'])->name('cancel');
 
 Route::middleware('can:admin')->group(function () {
     Route::get('/admin/index', [AdminController::class, 'index']);

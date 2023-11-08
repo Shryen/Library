@@ -1,6 +1,6 @@
 <x-layout>
-     <x-section>
-         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+     <x-section class="max-w-xl">
+         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="shadow p-4 bg-gray-100 rounded">
             <x-title>Register</x-title>
             @csrf
             <!-- Name -->

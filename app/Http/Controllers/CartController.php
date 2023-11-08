@@ -37,4 +37,43 @@ class CartController extends Controller
 
         return redirect('/books/index')->with('success', 'Added to cart');
     }
+
+    public function checkout()
+    {
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $cart = session()->get('cart', []);
+        $items = [];
+        foreach ($cart as $productID => $product) {
+            $items[] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $product['product']->title,
+                        'images' => [$product['product']->thumbnail],
+                    ],
+                    'unit_amount' => $product['product']->price * 100,
+                    // Convert to the smallest currency unit (e.g., cents)
+                ],
+                'quantity' => $product['quantity'],
+            ];
+        }
+        $checkout_session = $stripe->checkout->sessions->create([
+            'line_items' => $items,
+            'payment_method_types' => ['card'],
+            'mode' => 'payment',
+            'success_url' => route('success'),
+            'cancel_url' => route('cancel'),
+        ]);
+        return redirect($checkout_session->url);
+    }
+
+    public function success()
+    {
+        return view('checkout/success');
+    }
+
+    public function cancel()
+    {
+        return view('checkout/cancel');
+    }
 }
