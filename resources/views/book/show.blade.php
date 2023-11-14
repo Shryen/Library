@@ -28,7 +28,7 @@
                 {!! $book->body !!}
             </div>
         </div>
-        <hr>
+        <hr />
         <div>
             @guest
                 <p class="text-sm pl-2 mt-5"><a href="/login" class="text-blue-800">Log in</a> to rate this book.</p>

@@ -20,6 +20,10 @@
             <a href="/cart/index" class="flex justify-end">
                 <x-primary-button>Checkout</x-primary-button>
             </a>
+            <form action="/sessionflush" method="POST">
+                @csrf
+                <x-primary-button>Delete Cart</x-primary-button>
+            </form>
         @else
             <p>Your shopping cart is empty.</p>
         @endif

@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Order;
+use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Stripe\Customer;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CartController extends Controller
 {
@@ -17,7 +24,6 @@ class CartController extends Controller
     {
         $productID = $request->input('book_id');
         $product = Book::find($productID);
-
         if (!$product) {
             return redirect()->back()->with('error', 'Product not found!');
         }
@@ -28,6 +34,7 @@ class CartController extends Controller
             $cart[$productID]['quantity']++;
         } else {
             $cart[$productID] = [
+                'id' => $productID,
                 'product' => $product,
                 'quantity' => 1,
             ];
@@ -42,14 +49,16 @@ class CartController extends Controller
     {
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $cart = session()->get('cart', []);
+        $totalPrice = 0;
         $items = [];
         foreach ($cart as $productID => $product) {
+            $totalPrice += $product['product']->price;
             $items[] = [
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $product['product']->title,
-                        'images' => [$product['product']->thumbnail],
+                        'images' => [asset('storage/' . $product['product']->thumbnail)],
                     ],
                     'unit_amount' => $product['product']->price * 100,
                     // Convert to the smallest currency unit (e.g., cents)
@@ -57,23 +66,69 @@ class CartController extends Controller
                 'quantity' => $product['quantity'],
             ];
         }
+
+        $customer = $stripe->customers->create([
+            'email' => auth()->user()->email,
+        ]);
+
+        $order = new Order();
+        $order->status = 'pending';
+        $order->price = $totalPrice;
+        $order->user_id = auth()->user()?->id;
+        $order->save();
+
         $checkout_session = $stripe->checkout->sessions->create([
             'line_items' => $items,
+            'shipping_address_collection' => ['allowed_countries' => ['AT']],
+            'customer_creation' => 'always',
             'payment_method_types' => ['card'],
             'mode' => 'payment',
-            'success_url' => route('success'),
+            'success_url' => route('success', ['order' => $order->id]) . "?session_id={CHECKOUT_SESSION_ID}",
             'cancel_url' => route('cancel'),
         ]);
+
+        $order->session_id = $checkout_session->id;
+        $order->save();
+        foreach ($cart as $productID => $product) {
+            $book = $product['id'];
+            $order->books()->attach($book);
+        }
+        $order->save();
+
         return redirect($checkout_session->url);
     }
 
-    public function success()
+    public function success(Order $order)
     {
-        return view('checkout/success');
+        $order->update(['status' => 'accepted']);
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        try {
+            $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+            $customer = $stripe->customers->retrieve($session->customer);
+        } catch (Error $e) {
+            \Log::error('Stripe API Error: ' . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        session()->forget('cart');
+        $orders = Order::find($order);
+        $orders->load('books');
+        return view('checkout.success', [
+            'session' => $session,
+            'customer' => $customer,
+            'order' => $orders
+        ]);
     }
 
-    public function cancel()
+    public function cancel(Order $order)
     {
+        $order->update(['status' => 'canceled']);
         return view('checkout/cancel');
+    }
+
+    public function delete()
+    {
+        session()->flush();
+        return redirect('/books/index');
     }
 }
