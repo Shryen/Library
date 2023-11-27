@@ -27,11 +27,11 @@
                                 @endif
                             </div>
                             <div class="lg:col-span-3 col-span-12 flex justify-end">
-                                <span class="text-sm text-gray-700 uppercase">Order ID #{{ $order->id }}</span>
+                                <a href="/order/{{ $order->id }}"><span class="text-sm text-gray-700 uppercase">Order
+                                        ID #{{ $order->id }}</span></a>
                             </div>
                         </div>
                         <div class="grid grid-cols-12 ml-2">
-
                             @foreach ($order->books as $book)
                                 <div class="py-4 lg:col-span-3 col-span-12">
                                     <img src={{ asset('storage/' . $book->thumbnail) }}

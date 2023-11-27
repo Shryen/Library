@@ -30,6 +30,7 @@ Route::get('/checkout/success/{order}', [CartController::class, 'success'])->nam
 Route::get('/checkout/cancel', [CartController::class, 'cancel'])->name('cancel');
 Route::post('/sessionflush', [CartController::class, 'delete']);
 Route::get('/orders', [OrderController::class, 'index'])->middleware('auth');
+Route::get('/order/{order}', [OrderController::class, 'show']);
 
 Route::middleware('can:admin')->group(function () {
     Route::get('/admin/index', [AdminController::class, 'index']);
@@ -38,6 +39,7 @@ Route::middleware('can:admin')->group(function () {
     Route::get('admin/book/{book:slug}/edit', [AdminController::class, 'edit']);
     Route::patch('admin/books/{book}', [AdminController::class, 'update']);
     Route::delete('admin/books/{book}', [AdminController::class, 'destroy']);
+    Route::get('admin/orders', [OrderController::class, 'all']);
 });
 
 

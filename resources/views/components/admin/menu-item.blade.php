@@ -2,7 +2,7 @@
 
 @php
 
-    $class = 'border-b border-blue-800 px-4 py-2';
+    $class = 'border-b border-blue-800 px-4 py-2 hover:text-blue-900';
 
     $class = ($active ?? false) ? 'border-b border-blue-800 px-4 py-2 text-blue-800' : 'border-b border-blue-800 px-4 py-2';
 

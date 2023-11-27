@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Order;
+use App\Models\Address;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -98,13 +99,22 @@ class CartController extends Controller
         return redirect($checkout_session->url);
     }
 
-    public function success(Order $order)
+    public function success(Order $order, Address $address)
     {
         $order->update(['status' => 'accepted']);
+        $address = new Address();
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         try {
             $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
             $customer = $stripe->customers->retrieve($session->customer);
+            $address->create([
+                'user_id' => auth()->user()?->id,
+                'city' => $customer->address->city,
+                'postal' => $customer->address->postal_code,
+                'line1' => $customer->address->line1,
+                'line2' => $customer->address->line2,
+                'country' => $customer->address->country
+            ]);
         } catch (Error $e) {
             \Log::error('Stripe API Error: ' . $e->getMessage());
             http_response_code(500);

@@ -18,6 +18,24 @@ $(document).ready(function() {
         }
     });
 });
+$(document).ready(function() {
+    $('#addBoldButton').click(function() {
+        var textarea = document.getElementById('textArea');
+        var tag = '<b>'; 
+        var closingTag = '</b>'; 
+        var selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+        var originalText = textarea.value;
+
+        // Check if text is selected
+        if (selectedText.length > 0) {
+            var modifiedText = originalText.substring(0, textarea.selectionStart) +
+                tag + selectedText + closingTag +
+                originalText.substring(textarea.selectionEnd);
+
+            textarea.value = modifiedText;
+        }
+    });
+});
 </script>
 
 <x-admin.admin-layout>
@@ -69,7 +87,5 @@ $(document).ready(function() {
             @endforeach
             <x-primary-button>Add Book</x-primary-button>
         </form>
-        <button id="addTagButton" onclick="paragraph()">Add paragraph</button>
-
     </x-section>
 </x-admin.admin-layout>
